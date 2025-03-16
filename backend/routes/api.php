@@ -26,7 +26,11 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    // Contacts api routes
+    Route::put('contacts/bulk-update', [ContactController::class, 'bulkUpdate']);
+    Route::delete('contacts/bulk-delete', [ContactController::class, 'bulkDelete']);
     Route::apiResource('contacts', ContactController::class);
+
     Route::apiResource('opportunities', OpportunityController::class);
     Route::apiResource('tasks', TaskController::class);
     Route::apiResource('tags', TagController::class);

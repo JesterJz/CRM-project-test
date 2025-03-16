@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -62,11 +63,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e): Response
     {
+        if ($e instanceof ModelNotFoundException) {
+            return response()->json([
+                'error' => 'Resource not found',
+                'message' => 'The requested resource could not be found',
+            ], Response::HTTP_NOT_FOUND);
+        }
+
         if ($e instanceof ValidationException) {
             return response()->json([
                 'message' => 'The given data was invalid.',
                 'errors' => $e->errors(),
-            ], 422);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return parent::render($request, $e);

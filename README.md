@@ -56,12 +56,17 @@ chown -R www-data:www-data /var/www/backend/storage /var/www/backend/bootstrap/c
 chmod -R 777 /var/www/backend/storage /var/www/backend/bootstrap/cache
 ```
 
-### Step 7:Generate Application Key and Migrate Database
+### Step 7: Generate Application Key and Migrate Database
 Generate the application key and run the database migrations with seed data:
 
 ```sh
 php artisan key:generate
 php artisan migrate --seed
+```
+
+### Step 8: Index dữ liệu vào Elasticsearch
+```sh
+php artisan elasticsearch:import
 ```
 ## 3. Postman workspace api test:
 

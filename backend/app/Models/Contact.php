@@ -7,14 +7,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 
 class Contact extends Model
 {
-    use HasFactory, ElasticsearchTrait;
+    use HasFactory, ElasticsearchTrait, softDeletes;
 
     protected $fillable = [
-        'name', 'email', 'phone', 'address', 'manager_id', 'created_by', 'tag_id', 'list_id'
+        'name',
+        'email',
+        'phone',
+        'address',
+        'manager_id',
+        'creator_id',
     ];
 
     public function manager(): belongsTo
@@ -32,7 +38,12 @@ class Contact extends Model
         return $this->belongsToMany(Tag::class, 'contact_tag');
     }
 
-    public static function search($query): Collection
+    public function lists(): belongsToMany
+    {
+        return $this->belongsToMany(ListContact::class, 'contact_list', 'contact_id', 'list_id');
+    }
+
+    public static function search($query)
     {
         $client = app('Elasticsearch');
         $index = (new static)->getElasticsearchIndex();
@@ -42,20 +53,9 @@ class Contact extends Model
             $client->indices()->create(['index' => $index]);
         }
 
-        $items = $client->search([
+        return $client->search([
             'index' => $index,
-            'body' => [
-                'query' => [
-                    'multi_match' => [
-                        'query' => $query,
-                        'fields' => config('define.contact.fields'),
-                    ],
-                ],
-            ],
+            'body' => $query
         ]);
-
-        return collect($items['hits']['hits'])->map(function ($hit) {
-            return $hit['_source'];
-        });
     }
 }

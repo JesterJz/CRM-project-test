@@ -22,6 +22,7 @@ class ContactFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
+            'phone' => $this->faker->phoneNumber,
             'manager_id' => $this->faker->randomElement(User::all()->pluck('id')),
             'creator_id' => $this->faker->randomElement(User::all()->pluck('id')),
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),

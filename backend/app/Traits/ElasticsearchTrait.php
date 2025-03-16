@@ -59,35 +59,38 @@ trait ElasticsearchTrait
     /**
      * Get the Elasticsearch data.
      *
+     * @param array $data
      * @return array
      */
-    public function getElasticsearchData(): array
+    public function getElasticsearchData(array $data = []): array
     {
-        return $this->toArray();
+        return empty($data) ? $this->toArray() : $data;
     }
 
     /**
      * Add the model to the Elasticsearch index.
      *
+     * @param array $data
      * @return void
      */
-    public function addToIndex(): void
+    public function addToIndex(array $data = []): void
     {
         $client = app('Elasticsearch');
         $client->index([
             'index' => $this->getElasticsearchIndex(),
             'type' => $this->getElasticsearchType(),
             'id' => $this->getElasticsearchId(),
-            'body' => $this->getElasticsearchData(),
+            'body' => $this->getElasticsearchData($data),
         ]);
     }
 
     /**
      * Update the model in the Elasticsearch index.
      *
+     * @param array $data
      * @return void
      */
-    public function updateIndex(): void
+    public function updateIndex(array $data = []): void
     {
         $client = app('Elasticsearch');
         $client->update([
@@ -95,7 +98,7 @@ trait ElasticsearchTrait
             'type' => $this->getElasticsearchType(),
             'id' => $this->getElasticsearchId(),
             'body' => [
-                'doc' => $this->getElasticsearchData(),
+                'doc' => $this->getElasticsearchData($data),
             ],
         ]);
     }
