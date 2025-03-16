@@ -120,6 +120,14 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/elastic/transport" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/elasticsearch/elasticsearch" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/open-telemetry/api" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/open-telemetry/context" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/php-http/discovery" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/php-http/httplug" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/php-http/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/symfony/polyfill-php82" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

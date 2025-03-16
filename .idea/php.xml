@@ -124,6 +124,16 @@
       <path value="$PROJECT_DIR$/backend/vendor/dragonmantank/cron-expression" />
       <path value="$PROJECT_DIR$/backend/vendor/graham-campbell/result-type" />
       <path value="$PROJECT_DIR$/backend/vendor/composer" />
+      <path value="$PROJECT_DIR$/backend/vendor/bensampo/laravel-enum" />
+      <path value="$PROJECT_DIR$/backend/vendor/laminas/laminas-code" />
+      <path value="$PROJECT_DIR$/backend/vendor/elasticsearch/elasticsearch" />
+      <path value="$PROJECT_DIR$/backend/vendor/php-http/discovery" />
+      <path value="$PROJECT_DIR$/backend/vendor/php-http/httplug" />
+      <path value="$PROJECT_DIR$/backend/vendor/php-http/promise" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-php82" />
+      <path value="$PROJECT_DIR$/backend/vendor/open-telemetry/api" />
+      <path value="$PROJECT_DIR$/backend/vendor/open-telemetry/context" />
+      <path value="$PROJECT_DIR$/backend/vendor/elastic/transport" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0">
