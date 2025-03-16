@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('contact_list', function (Blueprint $table) {
+            $table->foreignId('contact_id')->constrained('contacts')->cascadeOnDelete();
+            $table->foreignId('list_id')->constrained('lists')->cascadeOnDelete();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('contact_list');
     }
 };
