@@ -1,49 +1,68 @@
 # CRM-project-test
-## 1. DB Diagram:
 
-<img src="./crm-dbdiagram.png" alt="Diagram">
+## 1. DB Diagram
 
-## 2.Install
+![Database Diagram](./crm-dbdiagram.png)
 
-`git clone --recurse-submodules https://github.com/JesterJz/CRM-project-test.git`
+## 2. Installation Guide
 
-`cd CRM-project-test`
+### Step 1: Clone the Repository
+First, clone the repository with its submodules:
 
-`cp .env.laradock ./laradock/.env`
+```sh
+git clone --recurse-submodules https://github.com/JesterJz/CRM-project-test.git
+cd CRM-project-test
+```
+### Step 2: Configure Environment
+Copy the environment configuration files to the appropriate locations:
 
-`cp crm.conf ./laradock/nginx/sites/`
+```sh
+cp .env.laradock ./laradock/.env
+cp crm.conf ./laradock/nginx/sites/
+```
+### Step 3: Edit hosts:
+Add the following line to your hosts file to set up the local domain:
 
-### Edit hosts:
+- Windows: Open `C:\Windows\System32\drivers\etc\hosts` in a text editor with administrative privileges.
+- macOS/Linux: Open `/etc/hosts` in a text editor with sudo privileges.
+Add this line to the file:
 
-`windows: C:\Windows\System32\drivers\etc\hosts`
+```
+127.0.0.1      crm.local
+```
+### Step 4: Build and run containers:
 
-`masOS/linux: /etc/hosts`
+```sh
+cd laradock
+docker-compose up -d nginx mysql phpmyadmin elasticsearch workspace
+```
 
-add new line:
-` 127.0.0.1      crm.local`
+### Step 5: Install composer and npm packages:
+Access the workspace container and install the required packages:
+
+```sh
+docker-compose exec workspace bash && cd backend
+composer install && npm install
+```
 
 ---
-### Build and run containers:
-`cd laradock`
 
-`docker-compose up -d nginx mysql phpmyadmin elasticsearch workspace`
+### Step 6: Set Permissions for Laravel Storage
+Ensure the Laravel storage directories have the correct permissions:
 
-### Install composer and npm packages:
+```sh
+chown -R www-data:www-data /var/www && \
+chown -R www-data:www-data /var/www/backend/storage /var/www/backend/bootstrap/cache && \
+chmod -R 777 /var/www/backend/storage /var/www/backend/bootstrap/cache
+```
 
-`docker-compose exec workspace bash && cd backend`
+### Step 7:Generate Application Key and Migrate Database
+Generate the application key and run the database migrations with seed data:
 
-`composer install && npm install`
+```sh
+php artisan key:generate
+php artisan migrate --seed
+```
+## 3. Postman workspace api test:
 
----
-
-### Add permissions to work with the Laravel storage
-
-`chown -R www-data:www-data /var/www && \
-  chown -R www-data:www-data /var/www/backend/storage /var/www/backend/bootstrap/cache && \
-  chmod -R 777 /var/www/backend/storage /var/www/backend/bootstrap/cache`
-
-### Generate key and migrate database:
-
-`php artisan key:generate`
-
-`php artisan migrate --seed`
+Workspace link: https://www.postman.com/crm-test-api/crm-api-docs/overview
