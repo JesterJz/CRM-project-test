@@ -41,7 +41,8 @@ docker-compose up -d nginx mysql phpmyadmin elasticsearch workspace
 Access the workspace container and install the required packages:
 
 ```sh
-docker-compose exec workspace bash && cd backend
+docker-compose exec workspace bash
+cd backend
 composer install && npm install
 ```
 
