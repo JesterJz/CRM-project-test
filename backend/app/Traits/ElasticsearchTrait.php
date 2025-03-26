@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use Elastic\Elasticsearch\ClientBuilder;
-
 trait ElasticsearchTrait
 {
     /**
@@ -59,46 +57,43 @@ trait ElasticsearchTrait
     /**
      * Get the Elasticsearch data.
      *
-     * @param array $data
      * @return array
      */
-    public function getElasticsearchData(array $data = []): array
+    public function getElasticsearchData(): array
     {
-        return empty($data) ? $this->toArray() : $data;
+        return $this->toArray();
     }
 
     /**
      * Add the model to the Elasticsearch index.
      *
-     * @param array $data
      * @return void
      */
-    public function addToIndex(array $data = []): void
+    public function addToIndex(): void
     {
-        $client = app('Elasticsearch');
+        $client = app('elasticsearch');
         $client->index([
             'index' => $this->getElasticsearchIndex(),
             'type' => $this->getElasticsearchType(),
             'id' => $this->getElasticsearchId(),
-            'body' => $this->getElasticsearchData($data),
+            'body' => $this->getElasticsearchData(),
         ]);
     }
 
     /**
      * Update the model in the Elasticsearch index.
      *
-     * @param array $data
      * @return void
      */
-    public function updateIndex(array $data = []): void
+    public function updateIndex(): void
     {
-        $client = app('Elasticsearch');
+        $client = app('elasticsearch');
         $client->update([
             'index' => $this->getElasticsearchIndex(),
             'type' => $this->getElasticsearchType(),
             'id' => $this->getElasticsearchId(),
             'body' => [
-                'doc' => $this->getElasticsearchData($data),
+                'doc' => $this->getElasticsearchData(),
             ],
         ]);
     }
@@ -110,7 +105,7 @@ trait ElasticsearchTrait
      */
     public function removeFromIndex(): void
     {
-        $client = app('Elasticsearch');
+        $client = app('elasticsearch');
         $client->delete([
             'index' => $this->getElasticsearchIndex(),
             'type' => $this->getElasticsearchType(),

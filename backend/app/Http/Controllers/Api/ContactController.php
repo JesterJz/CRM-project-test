@@ -18,9 +18,7 @@ class ContactController extends Controller
 {
     public function __construct(
         private ContactService $contactService,
-    )
-    {
-    }
+    ) {}
 
     /**
      * Display a listing of the resource.

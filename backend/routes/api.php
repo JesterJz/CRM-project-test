@@ -31,9 +31,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('contacts/bulk-delete', [ContactController::class, 'bulkDelete']);
     Route::apiResource('contacts', ContactController::class);
 
+    // CRUD manager
+    Route::apiResource('users', UserController::class);
+    
     Route::apiResource('opportunities', OpportunityController::class);
     Route::apiResource('tasks', TaskController::class);
     Route::apiResource('tags', TagController::class);
     Route::apiResource('pipelines', PipelineController::class);
-    Route::apiResource('users', UserController::class);
 });

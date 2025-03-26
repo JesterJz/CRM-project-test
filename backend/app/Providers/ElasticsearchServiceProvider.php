@@ -14,7 +14,7 @@ class ElasticsearchServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('Elasticsearch', function ($app) {
+        $this->app->singleton('elasticsearch', function ($app) {
             return ClientBuilder::create()
                 ->setHosts(config('elasticsearch.hosts'))
                 ->build();

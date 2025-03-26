@@ -45,7 +45,7 @@ class Contact extends Model
 
     public static function search($query)
     {
-        $client = app('Elasticsearch');
+        $client = app('elasticsearch');
         $index = (new static)->getElasticsearchIndex();
         // Check if the index exists
         if (!$client->indices()->exists(['index' => $index])) {
