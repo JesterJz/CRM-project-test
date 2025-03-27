@@ -18,8 +18,6 @@ class ImportContactsToElasticsearch extends Command
     public function handle()
     {
         $this->info('Importing contacts...');
-//        $client = app('Elasticsearch');
-//        $client->indices()->delete(['index' => 'contacts']);
         $contacts = Contact::with(['manager', 'creator', 'tags', 'lists'])->get();
         $contacts->each(function ($contact) {
             $contact->addToIndex([
